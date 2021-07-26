@@ -7,7 +7,7 @@ using namespace std;
 bool desc(int a, int b)
 { 
     //앞의 값이 더 크게 나오도록 바꿔줌(즉 참으로 만드는 조건을 만들어줌)
-    return a > b; //(a < b : 오름차순) 앞이 더 큰게 참 
+    return a > b; //(a < b : 오름차순) 앞이 더 큰게 참 (린턴이 False면 swap)
 
 }
 
