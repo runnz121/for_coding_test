@@ -28,10 +28,11 @@ int main(void){
 
   int x = 0;
   while(k > 0){
-      temp = ar1[x];
-      ar1[x] = ar2[n-1-x];
-      ar2[n-1-x] = temp;
-
+      if(ar1[x] > ar2[n-1-x]){
+        temp = ar1[x];
+        ar1[x] = ar2[n-1-x];
+        ar2[n-1-x] = temp;
+      }
       x++;
       k--;
   }
