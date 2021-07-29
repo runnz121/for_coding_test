@@ -24,17 +24,7 @@ int main(){
     sort(arr.begin(), arr.end());
 
     mid = arr.at(arr.size()/2);
-    mid_1 = arr.at(arr.size()/2+1);
-    mid__1 = arr.at(arr.size()/2-1);
-    ar1.push_back(mid);
-    ar1.push_back(mid_1);
-    ar1.push_back(mid__1);
 
-    min = *min_element(ar1.begin(), ar1.end());
-
-    for(int j = 0; j < ar1.size(); j++){
-        cout << ar1[j] << ' ';
-    }
 
     cout << min << "\n";
 
