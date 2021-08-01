@@ -33,7 +33,7 @@ int main(){
         long long int mid = (min + maxval) /2;
 
         cout << mid << "\n";
-        
+
         for(int i = 0; i < n; i++){
             sum += mid/v[i];
         }
@@ -49,5 +49,3 @@ int main(){
     return 0;
 }
 
-//2 3 4 6 8 9 => 5
-//7 10 => 8
