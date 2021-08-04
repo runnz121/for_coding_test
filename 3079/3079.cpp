@@ -20,7 +20,7 @@ int main(){
 
     for(int i = 0; i < n; i++){
         cin >> v.at(i);
-        maxval = max((long long int)v.at(i), maxval);
+        maxval = max(v.at(i), maxval);
     }
 
     
