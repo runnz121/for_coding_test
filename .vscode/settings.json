@@ -73,6 +73,24 @@
     "*.tcc": "cpp",
     "memory_resource": "cpp",
     "ranges": "cpp",
-    "stop_token": "cpp"
+    "stop_token": "cpp",
+    "stack": "cpp",
+    "__tree": "cpp",
+    "cfenv": "cpp",
+    "cinttypes": "cpp",
+    "csetjmp": "cpp",
+    "csignal": "cpp",
+    "forward_list": "cpp",
+    "fstream": "cpp",
+    "future": "cpp",
+    "iomanip": "cpp",
+    "list": "cpp",
+    "map": "cpp",
+    "regex": "cpp",
+    "scoped_allocator": "cpp",
+    "set": "cpp",
+    "typeindex": "cpp",
+    "unordered_set": "cpp",
+    "valarray": "cpp"
   }
 }
