@@ -26,7 +26,6 @@ int main(){
 
     //누적합 배열 선언 및 초기화
     sum[0][0] = vec[0][0];
-
     for(int i = 1; i < a; i++){
         for(int j = 0; j <= i; j++){
 
@@ -46,6 +45,7 @@ int main(){
     }
 }
 
+//저장해 놓은 배열을 돌면서 최대값을 찾는다
     for (int i = 0; i < a; i++){
         if(sum[a-1][i] > res){
             res = sum[a-1][i];

@@ -11,8 +11,8 @@ int dx[] = {-1, 1, 0, 0};
 int dy[] = {0, 0, -1, 1};
 
 int bfs(int a, int b){
-    queue<pair<int,int> > q;
-    q.push({a,b});
+    queue<pair<int, int>> q;
+    q.push({a, b});
 
     while(!q.empty()){
         int x = q.front().first;
