@@ -1,2 +1,4 @@
-N = int(input())
 
+answer = "asb"
+for i in answer:
+    print(i)
