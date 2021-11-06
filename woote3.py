@@ -1,8 +1,8 @@
 def solution(ings, menu, sell):
-    answer = 0
     ing_list = dict()
     menu_list = dict()
     sell_list = dict()
+    total_sums = []
 
     for i in ings:
         ing = i.split()
@@ -33,8 +33,20 @@ def solution(ings, menu, sell):
                     sums += ing_list.get(j)[0]
         sums = menu_list.get(x)[1] - sums
         menu_list[x] = [sums]
+        sums = 0
+    # print(menu_list)
+    # print(sell_list)
 
+    total = 0
+    for x in sell_list.keys():
+        sel_cnt = sell_list.get(x)[0]
+        for j in menu_list.keys():
+            if x == j:
+                total = sel_cnt * menu_list.get(x)[0]
+                total_sums.append(total)
+                total = 0
 
+    answer = sum(total_sums)
     return answer
 
 #1161
@@ -47,7 +59,7 @@ ings1=["x 25", "y 20", "z 1000"]
 menu1=["AAAA xyxy 15", "TTT yy 30", "BBBB xx 30"]
 sell1=["BBBB 3", "TTT 2"]
 
-print(solution(ings, menu, sell))
+print(solution(ings1, menu1, sell1))
 
 # product = dict()
 # sell_dict = dict()
