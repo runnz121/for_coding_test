@@ -1,0 +1,1 @@
+# select I.customer_id, C.customer_name from invoice AS I, customer AS C where (select customer_id from invoice) not exists (select id from customer)
