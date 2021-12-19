@@ -1,18 +1,34 @@
-N = int(input())
+def found(keypad, tofound):
+    answer = []
+    for i in range(4):
+        for j in range(3):
+            if tofound == keypad[i][j]:
+                answer.append((i,j))
+    return answer
 
-stair = [0]
-for _ in range(N):
-    stair.append(int(input()))
 
-if N == 1:
-    print(stair[1])
-else:# dp 초기화
-    dp = [0] * (N+1)
-    dp[1] = stair[1]
-    dp[2] = stair[1] + stair[2]
 
-    #현재 기준 3칸 밑에서 올라오는 것과, 2칸 밑에서 올라오는것 기준으로 큰값이 현재 값
-    for i in range(3, N+1):
-        dp[i] = max(dp[i-3]+stair[i-1]+stair[i], dp[i-2]+stair[i])
-    print(dp)
-    print(dp[N])
+
+def solution(numbers, hand):
+    left = ['*', '1', '4', '7']
+
+    for i in range(len(numbers)):
+        if str(numbers[i]) in left:
+            print(numbers[i])
+
+    keypad = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        ['*', 0, '#']
+    ]
+    answer = found(keypad, 8)
+
+    print(answer[0][0])
+    return answer
+
+numbers =[1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5]
+numbers1=[7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2]
+hand ="right"
+hands="left"
+solution(numbers, hand)
