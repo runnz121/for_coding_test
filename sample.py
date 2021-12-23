@@ -1,21 +1,9 @@
-import sys
-input = sys.stdin.readline
+from collections import deque
 
-n = int(input())
-nums = list(map(int,input().split()))
-greedy = []
-for i in nums:
-    s = str(i)
-    leng = len(s)
+db = deque()
 
-    while len(s) < 10:
-        s += s[len(s)-leng]
-    # print(s)
-    greedy.append(([*list(s)],str(i)))
-    print(greedy)
-greedy.sort(key = lambda x : x[0], reverse = True)
+db.append([1,1])
+db.append([2,2])
 
-ans = ""
-for i in greedy:
-    ans += i[-1]
-print(ans if int(ans) != 0 else 0)
+if [1,2] in db:
+    print('yes')
