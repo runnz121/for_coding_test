@@ -37,7 +37,8 @@ def divide(x, y, n):
             white += 1
 divide(0,0,line)
 print(white)
-print(blue)line = int(input())
+print(blue)
+line = int(input())
 
 board = [[] for _ in range(line)]
 for i in range(line):
