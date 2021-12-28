@@ -27,9 +27,11 @@ def dijkstra(start):
         dist, now = heapq.heappop(q)
         print(distance)
 
+
         if distance[now] < dist:
             print('A',distance[now], distance)
             continue
+        # 현재 노드에 연결되어있는 노드와 해당 노드까지 이동하는 가중치값
         for i in graph[now]:
             print('B',i, graph, dist, i[1])
             # 총 거리 비용 = 해당 노드까지의 비용(미리 저장된것) + 해당 노드까지 가는데 든 간선 값
