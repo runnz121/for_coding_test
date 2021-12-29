@@ -1,47 +1,31 @@
-import heapq
+from heapq import heappush, heappop
 import sys
-
 input = sys.stdin.readline
-INF = int(1e9)
-
-n, m, c = map(int, input().split())
-
-graph = [[] for _ in range(n+1)]
-
-#최단거리 테이블 무한으로 초기화
-distance = [INF] * (n+1)
-
-# 모든 간선 저옵 입력받기
-for i in range(m):
-    x, y, z = map(int, input().split())
-    graph[x].append((y,z))
-
-
+n, e = map(int, input().split())
+s = [[] for i in range(n + 1)]
+inf = sys.maxsize
+for i in range(e):
+    a, b, c = map(int, input().split())
+    s[a].append([b, c])
+    s[b].append([a, c])
+v1, v2 = map(int, input().split())
 def dijkstra(start):
-    q = []
-    #시작 노드로 가기 위한 최단 경로는 0, 큐에 삽입
-    heapq.heappush(q, (0,start))
-    distance[start] = 0
-    while q: # 큐에 존재시
-        # 최단거리가 짧은 노드에 대한 정보 꺼내기
-        dist, now = heapq.heappop(q)
-        if distance[now] < dist:
-            continue
-        # 현재 노드와 연결된 다른 노드 확인
-        for i in graph[now]:
-            cost = dist + i[1]
-        # 현재 노드를 거쳐서 다른 노드로 이동하는게 더 짧을 경우
-            if cost < distance[i[0]]:
-                distance[i[0]] = cost
-                heapq.heappush(q, (cost, i[0]))
+    dp = [inf for i in range(n + 1)]
+    dp[start] = 0
+    heap = []
+    heappush(heap, [0, start])
+    while heap:
+        w, c = heappop(heap)
+        for n_n, n_w in s[c]:
+            wei = n_w + w
+            if dp[n_n] > wei:
+                dp[n_n] = wei
+                heappush(heap, [wei, n_n])
+    return dp
+one = dijkstra(1)
+v1_ = dijkstra(v1)
+v2_ = dijkstra(v2)
 
-dijkstra(c)
-
-count = 0
-max_distance = 0
-for d in distance:
-    if d != INF:
-        count += 1
-        max_distance = max(max_distance, d)
-
-print(count - 1, max_distance)
+print(one, v1_, v2_)
+# cnt = min(one[v1] + v1_[v2] + v2_[n], one[v2] + v2_[v1] + v1_[n])
+# print(cnt if cnt < inf else -1)
