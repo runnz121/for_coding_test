@@ -44,6 +44,7 @@ board = [[] for _ in range(line)]
 for i in range(line):
     board[i] = list(map(int, input().split()))
 
+print(board)
 
 # 좌표를 받아서 해당 좌표의 값이
 white, blue = 0, 0
