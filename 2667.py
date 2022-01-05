@@ -17,7 +17,6 @@ def bfs(x, y):
     que.append([x,y])
 
     while que:
-        print("infi")
         x, y = que.popleft()
 
         for i in range(4):
