@@ -16,3 +16,4 @@ else:# dp 초기화
         dp[i] = max(dp[i-3]+stair[i-1]+stair[i], dp[i-2]+stair[i])
 
     print(dp[N])
+    print(dp[0])
