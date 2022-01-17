@@ -19,4 +19,3 @@ def solve():
 for _ in range(int(input())):
     solve()
 
-# https://data-make.tistory.com/402
