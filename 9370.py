@@ -43,6 +43,6 @@ for i in range(T):
     for k in range(t):
         target.append(int(input()))
 
-    print(dijkstra(0))
+    print(dijkstra(s))
 
 
