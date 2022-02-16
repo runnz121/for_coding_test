@@ -1,5 +1,6 @@
 n = int(input())
 
+# 열은 신경쓰지 않고, 행 만 생각함
 count = 0
 arr = [0] * n
 def check(x):
