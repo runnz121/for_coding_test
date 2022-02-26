@@ -3,6 +3,7 @@ import sys
 from collections import Counter
 input = sys.stdin.readline
 INF = int(1e9)
+
 def solution(n, edge):
     answer = 0
 
@@ -54,7 +55,7 @@ def solution(n, edge):
 
                 # 현재 노드를 거쳐서, 다른 노드로 이동하는 거리가 더 짧은 경우
                 # 최단거리테이블에서 해당 노드의 최단거리를 갱신
-                if cost < distance[i[0]]:
+                if cost < distance[i[0]]: # distance[3] = 1
                     distance[i[0]] = cost
                     heapq.heappush(q, (cost, i[0])) # 갱신된 것을 다시 큐에 넣어줌
 
@@ -70,7 +71,7 @@ def solution(n, edge):
     answer = ans.count(maxes)
 
     #print(answer)
-   # print(distance)
+    #print(distance)
     return answer
 
 
