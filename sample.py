@@ -23,4 +23,4 @@ def bell(start):
             next = edge[j][1]
             cost = edge[j][2]
 
-            if distance[currnet] != INF and distance[next] > distance[currnet] + cost:
+         if distance[currnet] != INF and distance[next] > distance[currnet] + cost:
