@@ -27,7 +27,7 @@ def inorder(root): # -> A -> B -> D  순으로 들어감 D가 root인 상태로 
         print(root, end='')  # root # Tree[B][1] 값이 none을 리턴하고 한단계 위인 이 부분이 실행이되는데, 이때 A가 출력이됨
         inorder(tree[root][1])  # right
 
-# 즉 이거는 tree[x][0] 이 none을 출력하고 tree[x][1] 로 넘어갈때 중간에 출력인된다
+# 즉 이거는 tree[x][0] 이 none을 출력하고 tree[x][1] 로 넘어갈때 중간에 출:q!력인된다
 def postorder(root):
     if root != '.':
         postorder(tree[root][0])  # left
