@@ -1,26 +1,27 @@
-import sys
-input = sys.stdin.readline
-INF = int(1e9)
+n = int(input())
 
-v, e = map(int, input().split())
+res = [[0, []] for _ in range(n + 1)]
 
-edge = []
+res[1][0] = 0 # 최소값
+res[1][1] = [1] # 누적 경로값
 
-distance = [INF] * (v + 1)
+print(res)
 
-for _ in range(e):
-    a, b, c = map(int, input().split())
-    edge.append((a,b,c))
+for i in range(2, n + 1):
 
-print(edge)
+    # 여기서 현재 인덱스에서 -1 한 값을 정해주고 시작함
+    res[i][0] = res[i-1][0] + 1
+    res[i][1] = res[i-1][1] + [i]
 
-def bell(start):
-    distance[start] = 0
+    # 3으로 나누어 떨어지고, 3으로 나눈 인덱스의 값에 1더한게 현재 보다 작을때
+    if i % 3 == 0 and res[i //3][0] + 1 < res[i][0]:
+        res[i][0] = res[i // 3][0] + 1
+        res[i][1] = res[i //3][1] + [i]
 
-    for i in range(v): # 노드 갯수
-        for j in range(e): # 간선갯수
-            currnet = edge[j][0]
-            next = edge[j][1]
-            cost = edge[j][2]
+    if i % 2 == 0 and res[i // 2][0] + 1 < res[i][0]:
+        res[i][0] = res[i // 2][0] + 1
+        res[i][1] = res[i // 2][1] + [i]
 
-         if distance[currnet] != INF and distance[next] > distance[currnet] + cost:
+print(res[n][0])
+for i in res[n][1][::-1]:
+    print(i, end = ' ')
