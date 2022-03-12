@@ -1,3 +1,4 @@
+
 n = int(input())
 
 res = [[0, []] for _ in range(n + 1)]
@@ -25,3 +26,7 @@ for i in range(2, n + 1):
 print(res[n][0])
 for i in res[n][1][::-1]:
     print(i, end = ' ')
+
+
+stack =[1,2,3]
+print(stack[-1])
