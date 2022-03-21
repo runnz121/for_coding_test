@@ -1,44 +1,74 @@
-a, b = map(int, input().split())
+import sys
 
-arr = []
+input = sys.stdin.readline
+r, c = map(int, input().split())
+arr = [list(map(lambda x: ord(x) - 65, input().rstrip())) for _ in range(r)] # 입력받은 알파벳을 숫자로 바꿈
+alpha = [0] * 26 # 이게 체크배열 역할
 
-for i in range(a):
-    res = list(map(str, input()))
-    arr.append(res)
 
-check = [[False] * b for _ in range(a)]
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
 
-ans = []
-cnt = 0
 
-def dfs(x, y):
-
-    if x > a or x < 0 or y > b or y < 0:
-        return
-
+def dfs(x, y, count):
     global ans
-    global cnt
+    ans = max(ans, count) # 최대값 확인은 여기서 한번만
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < r and 0 <= ny < c and alpha[arr[nx][ny]] == 0: # 범위를 벗어나지 않고, 체크배열에 중복되지 않음
+            alpha[arr[nx][ny]] = 1 # 체크배열을 체크하고 재귀
+            dfs(nx, ny, count + 1)
+            alpha[arr[nx][ny]] = 0
 
-    dx = [-1,1,0,0]
-    dy = [0,0,-1,1]
 
-    for i in range(b):
-        for j in range(i, a):
+ans = 1
+alpha[arr[0][0]] = 1
+dfs(0, 0, 1)
 
-            if check[i][j]:
-                continue
+print(ans)
 
-            check[i][j] = True
-            if arr[i][j] not in ans:
-                ans.append(arr[i][j])
-                cnt += 1
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
 
-            dfs(nx, ny)
-            cnt -= 1
-            ans.pop()
-dfs(0, 0)
+# import sys
+# input = sys.stdin.readline
+# a, b = map(int, input().split())
+# arr = []
+# for i in range(a):
+#     res = list(map(str, input()))
+#     arr.append(res)
+# check = [[False] * b for _ in range(a)]
+# check[0][0] = True
+# ans = [arr[0][0]]
+# cnt = 1
+# anss = 1
 
-print(count)
+# def dfs(x, y):
+#     global cnt
+#     global ans
+#     global anss
+#     dx = [-1,1,0,0]
+#     dy = [0,0,-1,1]
+
+#     for i in range(4):
+#         nx = x + dx[i]
+#         ny = y + dy[i]
+#
+#         if nx < 0 or ny < 0 or nx >= a or ny >= b:
+#             continue
+#         if check[nx][ny]:
+#             continue
+#         check[nx][ny] = True
+#         if arr[nx][ny] in ans:
+#             check[nx][ny] = False
+#             anss = max(cnt, anss)
+#             continue
+#         else:
+#             ans.append(arr[nx][ny])
+#             cnt += 1
+#             dfs(nx, ny)
+#             check[nx][ny] = False
+#             ans.pop()
+#             cnt -= 1
+# dfs(0, 0)
+#
+# print(anss)
