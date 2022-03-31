@@ -7,4 +7,3 @@ for i in range(N):
 
 command = list(map(int, input().split()))
 
-if

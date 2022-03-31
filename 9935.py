@@ -1,25 +1,23 @@
 import sys
 
-sys.setrecursionlimit(10 ** 4)
-
 input = sys.stdin.readline
 
 string = str(input().rstrip())
 comp = str(input().rstrip())
 
-def recur(string):
-    if comp in string:
-        str = string.replace(comp, "")
-    else:
-        return string
+stack = []
 
-    if comp in str:
-        return recur(str)
-    return str
+for i in range(len(string)):
+    stack.append(string[i])
 
-res = recur(string)
-
-if res == "":
+    if len(stack) >= len(comp):
+        tmp = "".join(stack[-len(comp):])
+        if tmp == comp:
+            cnt = 0
+            while cnt < len(comp):
+                stack.pop()
+                cnt += 1
+if len(stack) == 0:
     print("FRULA")
 else:
-    print(res)
+    print("".join(stack))
