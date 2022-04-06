@@ -9,5 +9,5 @@ def solution(N):
             print(N % 10, end ='')
         N = N // 10
 
-N = 123450
+N = 1111001
 solution(N)
