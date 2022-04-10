@@ -17,6 +17,8 @@ def solution(call):
 
     res = sorted(db.items(), key=lambda x: x[1], reverse=True)
 
+    print(db)
+
     maxx = res[0][1]
 
     for key in db.keys():
@@ -34,6 +36,7 @@ def solution(call):
     answer = "".join(list_call)
 
 
+    print(answer)
     return answer
 
 

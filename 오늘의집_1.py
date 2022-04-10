@@ -2,17 +2,11 @@ from collections import deque
 
 def solution(path):
     answer = []
-    dir = {'E':0, 'S':0, 'W':0, 'N':0}
-    dx = [0, 1, 0, -1]
-    dy = [1, 0, -1, 0]
-    turn = ['left','right']
-    # print(f"Time {x}: Go straight {y}m and turn {direction}")
 
-    q = deque(path)
+    turn = ['left','right']
+
     total = 0
     cnt = 0
-    direction = ''
-    ans = ''
 
     for i in range(1, len(path)):
         flag = path[i-1]
@@ -37,12 +31,10 @@ def solution(path):
 
             ans = 'Time ' + str(x) + ':' + ' Go straight ' + str(y)+'m' + ' and turn ' + direction
             answer.append(ans)
-            #print(x, y, direction)
-
 
     print(answer)
     return answer
 
 
-path = "EEESEEEEEEENNNN"
+path = "EEEEEESEEEEEEENNNN"
 solution(path)
