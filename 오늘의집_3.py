@@ -1,9 +1,5 @@
-import copy
-
 
 def soluton(tstring, variables):
-
-    answer = ''
 
     db = dict()
 
@@ -18,23 +14,29 @@ def soluton(tstring, variables):
     for i in variables:
         db[i[0]] = i[1]
 
+    print(db)
+
     list_tstring = tstring.split(" ")
+
+    print(list_tstring)
+
+
 
     for i in range(len(list_tstring)):
         find = list_tstring[i]
         if find.startswith('{') and find[1:-1] in db:
             change = dfs(db, find[1:-1], find) # db, d, {d}
-            print(change)
+            #print(change)
             list_tstring[i] = change
-
+            #print(list_tstring[i])
 
 
     answer = ' '.join(list_tstring)
-    print(answer)
+    #print(answer)
     return answer
 
 
 tstring = "{a} {b} {c} {d} {i}"
-variables = [["b", "{c}"], ["a", "{b}"], ["e", "{f}"], ["h", "i"], ["d", "{e}"], ["f", "{d}"], ["c", "d"]]
+variables =[["b", "{c}"], ["a", "{b}"], ["e", "{f}"], ["h", "i"], ["d", "{e}"], ["f", "{d}"], ["c", "d"]]
 
 soluton(tstring, variables)
