@@ -2,6 +2,7 @@ def solution(N, number):
 
     # 숫자 사용 횟수를 dp로 만듬
     arr = [None] + [{int(str(N) * i)} for i in range(1, 9)]
+    print(arr)
 
    # print(arr) :  [None, {2}, {22}, {222}, {2222}, {22222}, {222222}, {2222222}, {22222222}]
 
@@ -9,7 +10,7 @@ def solution(N, number):
         for j in range(1, i): # 숫자 사용 횟수
             for num1 in arr[j]: #  2가 2번 사용 되었을 경우 (22) num1 = 22 -> i = 3, j = 1, 2 -> 3번
                 for num2 in arr[i - j]: #
-                    print(arr[i], arr[j], num1, num2, i, j)
+                    print("here", arr[i], arr[j], num1, num2, i, j)
                    # 즉 해당 숫자를 사용해서 만들어진 수를 그 배열에 넣겠다는 뜻
                     arr[i].add(num1 + num2)
                     arr[i].add(num1 - num2)
