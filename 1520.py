@@ -1,6 +1,4 @@
-import sys
-
-sys.setrecursionlimit(10 ** 6)
+from collections import deque
 
 a, b = map(int, input().split())
 
@@ -13,33 +11,35 @@ for i in range(a):
 ans = 0
 sample = 0
 
-def dfs(x, y, pre):
+def bfs(xx, yy, pree):
+
+    q = deque()
 
     global ans
-    global sample
 
     dx = [-1,1,0,0]
     dy = [0,0,-1,1]
 
-    print(x, y)
+    check[xx][yy] = True
+    q.append([xx, yy, pree])
 
-    if x == a and y == b:
-        ans += 1
-        return
+    while q:
+        x, y, pre = q.popleft()
 
-    check[x][y] = True
+        if x - 1 == a and y - 1 == b:
+            ans += 1
 
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
 
-        if 0 <= nx < a and 0 <= nx < b:
-            if check[nx][ny] == False:
-                if graph[nx][ny] < pre:
-                    check[nx][ny] = True
-                    dfs(nx, ny, graph[nx][ny])
+            if 0 <= nx < a and 0 <= nx < b:
+                if check[nx][ny] == False:
+                    if graph[nx][ny] < pre:
+                        check[nx][ny] = True
+                        q.append([nx, ny, graph[nx][ny]])
 
-dfs(0,0, graph[0][0])
+bfs(0,0, graph[0][0])
 
 print(ans)
 print(sample)
