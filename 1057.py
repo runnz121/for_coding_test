@@ -1,18 +1,20 @@
-from collections import deque
-
 a, b, c = map(int, input().split())
 
-answer = -1
+step = 0
 
+while b != 1 or c != 1:
+    if b == c:
+        break
 
+    if b % 2 == 0:
+        b = b//2
+    else:
+        b = b//2 + 1
 
-def bfs():
-    q = deque()
+    if c % 2 == 0:
+        c = c//2
+    else:
+        c = c//2 + 1
+    step += 1
 
-
-    while q:
-
-
-
-bfs()
-
+print(step)
