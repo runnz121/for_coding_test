@@ -14,6 +14,7 @@ def solution(s):
 
     if len(stack) == 0:
         answer = 1
+
     return answer
-s = "baabaa"
+s = ""
 solution(s)
