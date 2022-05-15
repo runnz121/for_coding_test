@@ -1,12 +1,14 @@
 
 def dfs(graph, v, visited):
 
+# 1 2 7 6 8 3 4 5
     visited[v] = True #방문 처리
     print(v, end= ' ')
 
     for i in graph[v]: # v 는 1부터 graph[1] == [2,3,8] == i
         if not visited[i]: # 조건문이 해당하지 않는 경우에 실행 즉 true가 아니면 실행
             dfs(graph, i, visited) # 2가 전달됨
+
 
 graph = [
     [], # 0번 노드
