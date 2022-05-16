@@ -12,7 +12,8 @@ for i in range(m): # 간선갯수만큼 받음
 for i in arr:
     i.sort()
 
-visited = [False] * (n+1) # 정점 갯수 기준
+
+visited = [0] * (n+1) # 정점 갯수 기준
 visited[0] = True
 
 
@@ -28,22 +29,17 @@ comp = [i+1 for i in range(n)] #정점갯수 기준
 ans = []
 ans.append(r)
 while que:
+    cnt = 1
     out = que.popleft()
 
     for i in range(len(arr[out])):
         idx = arr[out][i]
-        if not visited[idx]:
+        if visited[idx] == 0:
             ans.append(idx)
-            visited[idx] = True
+            visited[idx] = cnt + 1
             que.append(idx)
 
-for k in comp:
-    if k not in ans:
-        ans.insert(k-1, 0)
-
-for k in ans:
-    print(k)
-
+print(visited)
 
 #
 # import sys
