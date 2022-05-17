@@ -15,7 +15,7 @@ for _ in range(m):
     graph[a][b] = 1
     graph[b][a] = 1
 
-
+# 플로이드 워셜
 for k in range(1, n + 1):
     for a in range(1, n + 1):
         for b in range(1, n + 1):
