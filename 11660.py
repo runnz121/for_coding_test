@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sys
 input = sys.stdin.readline
 
@@ -21,3 +22,10 @@ for k in range(m):
     x1, y1, x2, y2 = map(int, input().split())
 
     print(sum_data[x2][y2] - sum_data[x1-1][y2] - sum_data[x2][y1-1] + sum_data[x1-1][y1-1])
+=======
+n, m = map(int, input().split())
+
+arr = []
+
+for i in range(n):
+>>>>>>> 616309a1b4c657ffee215aff4ac4dc451f427773
