@@ -1,13 +1,10 @@
 n = int(input())
-arr = list(map(int, input().split()))
-cluster = int(input())
-
-cnt = 0
-for i in arr:
-    if i != 0:
-        while i > 0:
-            i -= cluster
-            cnt += 1
-
-print(cnt * cluster)
-
+s = list(map(int, input().split()))
+a = int(input())
+sum = 0
+for i in s:
+    if i % a == 0:
+        sum += i // a
+    else:
+        sum += i // a + 1
+print(sum * a)
