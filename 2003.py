@@ -4,20 +4,41 @@ arr = list(map(int, input().split()))
 
 ptr1 = 0
 ptr2 = 1
-ans = 0
 
-while ptr1 < ptr2 <= a:
+cnt = 0
 
-    init = arr[ptr1] + arr[ptr2]
+if b >= 2:
+    while True:
+        sums = arr[ptr1] + arr[ptr2]
 
-    if init == a:
-        ans += 1
-        ptr1 += 1
-        ptr2 += 1
+        if sums == b:
+            cnt += 1
+            sums -= arr[ptr1]
+            sums += arr[ptr2]
+            ptr1 += 1
+            ptr2 += 1
+
+        elif sums < b:
+            ptr2 += 1
+            sums += arr[ptr2]
+        else:
+            ptr1 += 1
+            sums -= arr[ptr1]
+
+        if ptr1 > a-1:
+            break
+
+        if ptr2 > a:
+            ptr1 += 1
+            ptr2 = ptr1 + 1
+
+
+else:
+    if arr[0] != b:
+        print(0)
     else:
-        ptr2 += 1
-        if ptr2 == a:
-            if ptr1 == a-1:
-                ptr2 -= 1
-                ptr1 += 1
-print(ans)
+        print(1)
+
+
+
+print(cnt)
