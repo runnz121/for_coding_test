@@ -11,19 +11,18 @@ for i in range(n):
     graph[x].append(y)
     graph[y].append(x)
 
-
-for i in graph:
-    i.sort(reverse=True)
-
 ans = [0] * (n + 1)
+
 
 def bfs(start):
     cnt = 0
-    queue = deque([start])
+    queue = deque()
+    queue.append(start)
     check[start] = True
 
     while queue:
         v = queue.popleft()
+        graph[v].sort(reverse=True)
         cnt += 1
         ans[v] = cnt
 
@@ -32,8 +31,8 @@ def bfs(start):
                 check[k] = True
                 queue.append(k)
 
+
 bfs(r)
 
 for i in range(1, len(ans)):
     print(ans[i])
-
