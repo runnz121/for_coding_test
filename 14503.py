@@ -1,3 +1,7 @@
+import sys
+
+sys.setrecursionlimit(10**6)
+
 n, m = map(int, input().split())
 r, c, d = map(int, input().split())
 
@@ -8,51 +12,53 @@ for i in range(n):
     x = list(map(int, input().split()))
     arr.append(x)
 
-cur = arr[r][c]
+clean = 0
 
+if arr[r][c] == 0:
+    clean += 1
 
 def find(x, y, d, cnt):
-    global cur
+    global clean
+
+    if x < 0 or y < 0 or x >= n or y >= m:
+        print(clean)
+        return
 
     if d == 0:
         if arr[x][y - 1] == 0:
             d = dist[0 - 1]
-            cur = [x][y - 1]
-            arr[x][y - 1] = 0
-            return [x, y - 1, d, cnt]
+            clean += 1
+            return x, y - 1, d, cnt
         else:
             d = dist[0 - 1]
-            return [x, y, d, cnt + 1]
+            return x, y, d, cnt + 1
 
     elif d == 1:
         if arr[x - 1][y] == 0:
             d = dist[1 - 1]
-            cur = [x - 1][y]
-            arr[x - 1][y] = 0
-            return [x - 1, y, d, cnt + 1]
+            clean += 1
+            return x - 1, y, d, cnt + 1
         else:
             d = dist[1 - 1]
-            return [x, y, d, cnt + 1]
+            return x, y, d, cnt + 1
 
     elif d == 2:
         if arr[x][y + 1] == 0:
             d = dist[2 - 1]
-            cur = [x][y + 1]
-            arr[x][y + 1] = 0
-            return [x, y + 1, d, cnt + 1]
+            clean += 1
+            return find(x, y + 1, d, cnt + 1)
         else:
             d = dist[2 - 1]
-            return [x, y, d, cnt + 1]
+            return x, y, d, cnt + 1
 
     elif d == 3:
         if arr[x + 1][y] == 0:
             d = dist[3 - 1]
-            cur = [x + 1][y]
-            arr[x + 1][y] = 0
-            return [x + 1, y, d, cnt + 1]
+            clean += 1
+            return x + 1, y, d, cnt + 1
         else:
             d = dist[3 - 1]
-            return [x, y, d, cnt + 1]
+            return x, y, d, cnt + 1
 
 
 def check(x, y, d):
@@ -79,16 +85,21 @@ def check(x, y, d):
             return -1
         else:
             return 1
-
-
-clean = 0
-cnt = 1
+cnt = 0
 while True:
-    x, y, d, cnt = find(r, c, d, cnt)
-    clean += 1
-    if cnt == 4:
-        if check(x, y, d) == 1:
-            cnt -= 1
-        else:
+    x, y, dis, cnt1 = find(r, c, d, cnt)
+
+    if cnt1 == 4:
+        if check(x, y, dis) == -1:
             print(clean)
+            break
+        else:
+            cnt1 -= 1
+    if cnt > 5:
+        print(clean)
         break
+
+    r = x
+    c = y
+    d = dis
+    cnt = cnt1
