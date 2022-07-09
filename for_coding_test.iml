@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
   <component name="NewModuleRootManager">
+<<<<<<< HEAD
+    <orderEntry type="jdk" jdkName="Python 3.8 (codingtest)" jdkType="Python SDK" />
+=======
     <orderEntry type="jdk" jdkName="Python 3.8 (its_coding_test)" jdkType="Python SDK" />
+>>>>>>> 7f4f9506827f0c9fae29871628cfe85caa2885bb
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

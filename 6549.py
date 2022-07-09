@@ -9,6 +9,9 @@ def maxSize():
         #왼쪽으로 이어질 수 있는 index
         min_point = i
         while stack and stack[-1][0] >= rect[i]:
+
+
+            print(stack[-1])
             #pop되었다는 것은 추가 될 직사각형보다 높이가 높다는 의미이다.
             #따라서 추가될 직사각형은 pop되는 직사각형의 point값까지 넓어질 수 있다!
             #pop된 사각형의 point값으로 min_point를 업데이트
@@ -24,6 +27,8 @@ def maxSize():
 
 while True:
     N, *rect = map(int,read().split())
+
+    print(*rect)
     if N == 0:
         break
     print(maxSize())
