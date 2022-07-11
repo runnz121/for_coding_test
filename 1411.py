@@ -1,27 +1,36 @@
 import sys
-from itertools import combinations
 
-input = sys.stdin.readline
+sys = sys.stdin.readline
 
-x = int(input())
-
+n = int(input())
 arr = []
-compare = []
 
-for i in range(x):
-    res = input().rstrip()
-    arr.append(set(res))
-lists = list(combinations(arr,2))
+ans = 0
 
+db = dict()
 
-print(arr)
+for i in range(n):
+    x = list(str(input()))
+    temp = [1] * len(x)
 
+    for y in range(len(x)):
+        for z in range(y, len(x)):
+            if x[y] == x[z]:
+                temp[z] += 1
+                temp[y] += 1
+    arr.append(temp)
 
-count = 0
-for i in range(x):
-    for j in range(i+1, x):
-        if len(arr[i]) == len(arr[j]):
-        #count += 1
+for i in range(len(arr)):
+    for j in range(i+1, len(arr)):
+        start = 0
+        while True:
+            if start == len(arr[i]) - 1:
+                ans += 1
+                break
 
+            if arr[i][start] != arr[j][start]:
+                break
 
-print(count)
+            start += 1
+
+print(ans)
