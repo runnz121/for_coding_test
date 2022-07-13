@@ -6,17 +6,13 @@ n = int(input())
 arr = []
 
 ans = 0
-
-db = dict()
-
 for i in range(n):
     x = list(str(input()))
-    temp = [1] * len(x)
+    temp = [0] * len(x)
 
     for y in range(len(x)):
-        for z in range(y, len(x)):
+        for z in range(len(x)):
             if x[y] == x[z]:
-                temp[z] += 1
                 temp[y] += 1
     arr.append(temp)
 
