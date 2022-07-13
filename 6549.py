@@ -1,34 +1,39 @@
-import sys
-read=sys.stdin.readline
-
-def maxSize():
-    max_size = 0 #최대 넓이 저장
-    stack = []
-
-    for i in range(N):
-        #왼쪽으로 이어질 수 있는 index
-        min_point = i
-        while stack and stack[-1][0] >= rect[i]:
-
-
-            print(stack[-1])
-            #pop되었다는 것은 추가 될 직사각형보다 높이가 높다는 의미이다.
-            #따라서 추가될 직사각형은 pop되는 직사각형의 point값까지 넓어질 수 있다!
-            #pop된 사각형의 point값으로 min_point를 업데이트
-            h, min_point = stack.pop()
-            tmp_size = h * (i-min_point)
-            max_size = max(max_size, tmp_size)
-        stack.append([rect[i],min_point])
-    #탐색이 끝나고 아직 Stack에 남은 직사각형 정보로 maxSize 갱신
-    for h, point in stack:
-        max_size = max(max_size, (N-point)*h)
-
-    return max_size
-
 while True:
-    N, *rect = map(int,read().split())
-
-    print(*rect)
-    if N == 0:
+    arr = list(map(int, input().split()))
+    if len(arr) == 0 or len(arr) == 1:
         break
-    print(maxSize())
+
+    arr = arr[1:]
+
+    stacks = []
+
+    square = arr[0]
+
+    stacks.append(arr[0])
+    for i in range(1, len(arr)):
+        # 다음게 큰거
+        if stacks[-1] <= arr[i] and len(stacks) > 0:
+            comp_square = max(stacks[-1], square, arr[i])
+            if comp_square > square:
+                square = comp_square
+                if stacks[-1] != arr[i]:
+                    stacks.pop()
+                stacks.append(arr[i])
+                mins = arr[i]
+
+        # 다음게 작은거
+        else:
+            if len(stacks) == 0:
+                continue
+            while True:
+                idx = len(stacks)-1
+                if stacks[idx] < arr[i]:
+                    comp_square = (len(stacks) - idx + 1) * arr[i]
+                    square = max(comp_square, square)
+                    break
+                idx -= 1
+                if idx < 0:
+                    break
+
+
+    print(square)
