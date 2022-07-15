@@ -8,32 +8,25 @@ while True:
     stacks = []
 
     square = arr[0]
-
+    mins = arr[0]
+    max_stack = arr[0]
     stacks.append(arr[0])
     for i in range(1, len(arr)):
-        # 다음게 큰거
-        if stacks[-1] <= arr[i] and len(stacks) > 0:
-            comp_square = max(stacks[-1], square, arr[i])
-            if comp_square > square:
-                square = comp_square
-                if stacks[-1] != arr[i]:
-                    stacks.pop()
-                stacks.append(arr[i])
-                mins = arr[i]
+        # 다음게 큰거 -> 스택 인
+        if stacks[-1] <= arr[i]:
 
-        # 다음게 작은거
+            max_stacks = stacks[-1]
+
+            comp_square = max(arr[i], max_cnt * max_stacks)
+
+            square = max(square, comp_square)
+            stacks.append(arr[i])
+
+
+        # 다음게 작은거 -> 스택 아웃 -> 스택 인
         else:
-            if len(stacks) == 0:
-                continue
-            while True:
-                idx = len(stacks)-1
-                if stacks[idx] < arr[i]:
-                    comp_square = (len(stacks) - idx + 1) * arr[i]
-                    square = max(comp_square, square)
-                    break
-                idx -= 1
-                if idx < 0:
-                    break
+            h = stacks.pop()
+            h * (i - )
 
 
     print(square)

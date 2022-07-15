@@ -10,6 +10,9 @@ def maxSize():
         min_point = i
         while stack and stack[-1][0] >= rect[i]:
 
+            print(stack[-1])
+            print("stacks", stack[-1][0])
+
 
             print(stack[-1])
             #pop되었다는 것은 추가 될 직사각형보다 높이가 높다는 의미이다.
@@ -18,7 +21,7 @@ def maxSize():
             h, min_point = stack.pop()
             tmp_size = h * (i-min_point)
             max_size = max(max_size, tmp_size)
-        stack.append([rect[i],min_point])
+        stack.append([rect[i], min_point])
     #탐색이 끝나고 아직 Stack에 남은 직사각형 정보로 maxSize 갱신
     for h, point in stack:
         max_size = max(max_size, (N-point)*h)
