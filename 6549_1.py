@@ -29,9 +29,9 @@ def maxSize():
     return max_size
 
 while True:
-    N, *rect = map(int,read().split())
+    N, *rect = map(int,input().split())
 
-    print(*rect)
+    print("here",*rect)
     if N == 0:
         break
     print(maxSize())

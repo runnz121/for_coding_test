@@ -1,32 +1,23 @@
 while True:
-    arr = list(map(int, input().split()))
-    if len(arr) == 0 or len(arr) == 1:
+    N, *rect = map(int, input().split())
+
+    if N == 0:
         break
 
-    arr = arr[1:]
-
+    square = 0
     stacks = []
 
-    square = arr[0]
-    mins = arr[0]
-    max_stack = arr[0]
-    stacks.append(arr[0])
-    for i in range(1, len(arr)):
-        # 다음게 큰거 -> 스택 인
-        if stacks[-1] <= arr[i]:
 
-            max_stacks = stacks[-1]
+    for i in range(N):
+        mins = i
+        while stacks and stacks[-1][0] >= rect[i]:
+            h, mins = stacks.pop()
+            tmp_size = h * (i - mins)
+            square = max(square, tmp_size)
+        stacks.append([rect[i], mins])
 
-            comp_square = max(arr[i], max_cnt * max_stacks)
-
-            square = max(square, comp_square)
-            stacks.append(arr[i])
-
-
-        # 다음게 작은거 -> 스택 아웃 -> 스택 인
-        else:
-            h = stacks.pop()
-            h * (i - )
+    for h, point in stacks:
+        square = max(square, (N- point)*h)
 
 
     print(square)
