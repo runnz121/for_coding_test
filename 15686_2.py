@@ -25,18 +25,16 @@ tmp = []
 def cal(chicks):
 
     tmp_dist = 0
-    mins_dist = int(1e9)
 
     for k in house:
+        mins_dist = int(1e9)
+        x, y = k[0], k[1]
         for j in chicks:
-            x, y = k[0], k[1]
             dx, dy = j[0], j[1]
-
             dist = abs(x-dx) + abs(y-dy)
         # 집 기준으로 최소 거리에 있는 치킨집
             mins_dist = min(dist, mins_dist)
         tmp_dist += mins_dist
-    print("tmp_dist", tmp_dist)
     return tmp_dist
 
 
@@ -48,7 +46,6 @@ def back(depth, start):
     # 치킨집을 골라서 반환
     if depth == m:
         min_dis = min(cal(tmp), min_dis)
-        print("치킨집", tmp)
         return
 
     for i in range(start, len(chicken)):
