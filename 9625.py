@@ -1,30 +1,53 @@
-from collections import deque
 
 n = int(input())
 
-arr = ['A']
+a, b = 0, 1
+answer = []
 
-que = deque(arr)
+if n == 1:
+    answer.append(0)
+    answer.append(1)
+else:
+    arrB = [0 for i in range(n)]
+    arrB[0] = 1
+    arrB[1] = 1
 
-while n > 0:
+    for i in range(2, n):
+        k = arrB[i-1] + arrB[i-2]
+        arrB[i] = k
 
-    for _ in range(len(que)):
-
-        x = que.popleft()
-
-        if x == 'A':
-            que.append('B')
-        else:
-            que.append('B')
-            que.append('A')
-    n -= 1
-
-answer = [0,0]
-
-for k in range(len(que)):
-    if que[k] == 'A':
-        answer[0] += 1
-    else:
-        answer[1] += 1
+    answer.append(arrB[n-2])
+    answer.append(arrB[n-1])
 
 print(*answer)
+
+
+# 1
+# 0 1
+
+# 2
+# 1 1
+
+# 3
+# 1 2
+
+# 4
+# 2 3
+
+# 5
+# 3 5
+
+# 6
+# 5 8
+
+# 7
+# 8 13
+
+# 8
+# 13 21
+
+# 9
+# 21 34
+
+# 10
+# 34 55
