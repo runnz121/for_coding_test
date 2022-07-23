@@ -60,6 +60,7 @@ def back(depth, start):
         back(depth + 1, i)
         check[i] = False
         tmp.pop()
+
 back(0, 0)
 
 print(min_dis)
