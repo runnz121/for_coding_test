@@ -6,7 +6,7 @@ a = list(input().split())
 m = int(input())
 dp = [[0 for _ in range(n)]for _ in range(n)]
 
-# 자기 자신일 경우 -> 펠린드롬
+# 길이가 1인 경우 자기 자신일 경우 -> 펠린드롬
 for i in range(n):
     dp[i][i] = 1
 
