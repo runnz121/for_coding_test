@@ -1,28 +1,31 @@
 n, m = map(int, input().split())
 
 arr = list(map(int, input().split()))
-
-s = 0
-e = 1
+#
+# dp = [[0] * n for _ in range(n)]
 
 cnt = 0
-nu = arr[s]
-while e < n:
-
-    if nu % m == 0:
+for i in range(1, n):
+    arr[i] += arr[i-1]
+    if arr[i] % m == 0:
         cnt += 1
-        e += 1
-        if e < n:
-            nu += arr[e]
-        else:
-            break
-    elif nu % m:
-        nu -= arr[s]
-        s += 1
-    elif nu < m:
-        e += 1
-        if e < n:
-            nu += arr[e]
-        else:
-            break
+
+i = 0
+while True:
+
+    for k in range(i, n):
+        if (arr[k] - arr[i]) % m == 0 and (arr[k] - arr[i]) != 0:
+            cnt += 1
+
+    i += 1
+
+    if i == n-1:
+        break
+
 print(cnt)
+
+# 1 3 6 7 9
+# 0 2 5 6 8
+# 0 0 3 4 6
+# 0 0 0 1 3
+# 0 0 0 0 2
