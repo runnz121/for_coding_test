@@ -1,63 +1,23 @@
+import sys
+
+input = sys.stdin.readline
 target = int(input())
 n = int(input())
-if n >= 1:
-    broken = list(map(int, input().split()))
-else:
-    broken = []
-normal = [i for i in range(10)]
-uses = set(normal) - set(broken)
+broken = list(map(int, input().split()))
 
+# 현재 채널에서 + 혹은 -만 사용하여 이동하는 경우
+min_count = abs(100 - target)
 
-uses = list(uses)
+for nums in range(1000001):
+    nums = str(nums)
 
-start = 100
+    for j in range(len(nums)):
+        # 각 숫자가 고장났는지 확인 후, 고장 났으면 break
+        if int(nums[j]) in broken:
+            break
 
-count = 0
+        # 고장난 숫자 없이 마지막 자리까지 왔다면 min_count 비교 후 업데이트
+        elif j == len(nums) - 1:
+            min_count = min(min_count, abs(int(nums) - target) + len(nums))
 
-find = ''
-
-if len(str(target)) == 3:
-    if target == start:
-        count = 0
-    else:
-        count = target - start
-
-else:
-    # 각 자리 숫자
-    for num in list(str(target)):
-
-        find_up = int(num)
-        find_down = int(num)
-
-        if int(num) in uses:
-            find += str(num)
-            count += 1
-        else:
-            while True:
-                find_up += 1
-                find_down -=1
-
-                if find_up in uses:
-                    find += str(find_up)
-                    count += 1
-                    break
-                elif find_down in uses:
-                    find += str(find_down)
-                    count += 1
-                    break
-    find1 = find
-    find2 = find
-    find3 = find
-
-
-    print('find', find)
-    max_use = max(uses)
-    find1 = find1.replace('0', str(max_use))
-    
-
-    count1 = abs(target - int(find1))
-    count2 = abs(target - int(find2))
-
-    count += min(count1, count2)
-
-print(count)
+print(min_count)
