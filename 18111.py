@@ -1,57 +1,63 @@
-from collections import deque
+import sys
+
+input = sys.stdin.readline
 
 N, M, B = map(int, input().split())
 
 graph = []
 
-time = 0
-height = 0
-
-db ={}
+time = int(1e9)
+db = []
 
 for i in range(N):
     x = list(map(int, input().split()))
+    for k in x:
+        if k not in db:
+            db.append(k)
     graph.append(x)
 
-for i in range(len(graph)):
-    for j in range(len(graph[0])):
-        if graph[i][j] in db:
-            db[graph[i][j]] += 1
-        else:
-            db[graph[i][j]] = 1
-# 그래프 순회하고 그래프에 들어있는 값들을 지정
-# 해당 블럭의 갯수가 적고, 블럭 높이 오름차순 정렬
-sorted_db = sorted(db.items(), key = lambda x : (x[1], -x[0]))
+db.sort()
 
-print(sorted_db)
+dbs = [i for i in range(db[0],db[-1]+1)]
 
-# 전체 범위
-total = N * M
+ans = []
+# 블럭 기준
+for std in list(dbs):
+    tmp_time = 0
+    inven = B
+    for line in graph:
+        for bricks in line:
+            # 기준이 브릭보다 더 크면 -> 인벤에서 꺼냄
+            if std > bricks:
+                inven -= abs(std-bricks)
+                tmp_time += 1 * abs(std-bricks)
+            elif std < bricks:
+                inven += abs(bricks-std)
+                tmp_time += 2 * abs(bricks-std)
 
-answer = [0,0]
-
-max_height = sorted_db[len(sorted_db)-1][0]
-
-flag = False
-
-for key, value in sorted_db:
-    if B >= value:
-        if key > max_height:
-            answer[0] = value * 2
-        else:
-            answer[0] = value * 1
-        flag = True
-        answer[1] = max_height
-        break
+    if 0 <= std <= 256 and inven >= 0:
+         ans.append([tmp_time, std])
+    # else:
+    #     continue
+    # ans.append([tmp_time, std, inven])
 
 
-sorted_db = sorted(db.items(), key = lambda x : (-x[1], x[0]))
+ans.sort(key=lambda x : (x[0], -x[1]))
+# if len(ans) >0:
+#     print(*ans[0])
+print(*ans[0])
 
-print("second", sorted_db)
+#
+# 3 4 11
+# 29 51 54 44
+# 22 44 32 62
+# 25 38 16 2
 
-if not flag:
-    answer[0] = sorted_db[0] * 2
-    answer[1] = sorted_db[len(sorted_db)-1]
-
-
-print(*answer)
+# 7 7 6000
+# 30 21 48 55 1 1 4
+# 0 0 0 0 0 0 0
+# 15 4 4 4 4 4 8
+# 20 40 60 10 20 30 2
+# 1 1 1 1 1 1 9
+# 24 12 33 7 14 25 3
+# 3 3 3 3 3 3 32
