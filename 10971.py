@@ -4,10 +4,7 @@ arr = []
 
 for i in range(n):
     x = list(map(int, input().split()))
-    x.insert(0,0)
     arr.append(x)
-arr.insert(0,[])
-
 min_dist = int(1e9)
 
 check = [False] * n
@@ -21,13 +18,15 @@ def find_min(nodes):
     dist = 0
     flag = True
     for node in range(len(nodes)-1):
-        if arr[nodes[node]][nodes[node+1]] == 0:
+        if arr[nodes[node]-1][nodes[node+1]-1] == 0:
             flag = False
             break
         else:
-            dist += arr[nodes[node]][nodes[node+1]]
-    if flag:
-        dist += arr[nodes[n-1]][nodes[0]]
+            dist += arr[nodes[node]-1][nodes[node+1]-1]
+
+    # 마지막에서 0번쨰로 갈 수 있는지를 확인
+    if flag and arr[nodes[n-1]-1][nodes[0]-1] != 0:
+        dist += arr[nodes[n-1]-1][nodes[0]-1]
         min_dist = min(dist, min_dist)
     else:
         return
@@ -38,7 +37,6 @@ def back(depth):
     global temp
 
     if depth == n:
-        #print(temp)
         find_min(temp)
         return
 
@@ -54,5 +52,7 @@ def back(depth):
 
 back(0)
 
-
-print(min_dist)
+if min_dist == int(1e9):
+    print(0)
+else:
+    print(min_dist)
