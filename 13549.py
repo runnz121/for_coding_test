@@ -1,40 +1,37 @@
 from collections import deque
 
-start, end = map(int, input().split())
+a, b = map(int, input().split())
 
+check = [-1] * 100001
 
 que = deque()
 
-que.append(start)
+def bfs(n, k):
 
-cnt = 0
-
-check = [False for i in range(end + 1)]
-
-
-
-def bfs():
-
-    global cnt
-
+    que.append(n)
+    check[n] = 0
 
     while que:
         x = que.popleft()
 
-        lists = [2*x, x-1, x+1]
+        if x == k:
+            return
 
-        if x == end:
-            break
+        if (x * 2 <= 100000) and (check[x * 2] == -1):
+            # 가중치가 0임으로 우선순위가 가장 높게 잡힌다 -> 큐 맨 앞에 넣음
+            que.appendleft(x * 2)
+            check[x * 2] = check[x]#가중치가 0임으로 같게만 설정 (시간 0 초)
 
-        if not check[x]:
-            check[x] = True
-            for i in lists:
-                y = end
-                y = min(abs(i-y), y)
-            que.append(y)
-            cnt += 1
+        if x > 0 and check[x - 1] == -1:
+            que.append(x - 1)
+            check[x - 1] = check[x] + 1 # 가중치가 1 존재(시간 1초)
 
-bfs()
-print(cnt)
+        if x < 100000 and check[x + 1] == -1:
+            que.append(x + 1)
+            check[x + 1] = check[x] + 1
 
+
+bfs(a, b)
+
+print(check[b])
 
