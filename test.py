@@ -95,3 +95,18 @@ x = ['Tick', 'Tock', 'Song']
 y = ['Ping', 'Pong']
 x.extend(y)
 print('x:', x)
+
+
+import heapq
+
+q = [2,4,5,6]
+s= []
+heapq.heapify(q)
+
+for i in range(4):
+    heapq.heappush(s, -q[i])
+
+print(q)
+for i in range(4):
+    x = heapq.heappop(s)
+    print(-x)
