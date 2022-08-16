@@ -32,6 +32,7 @@ for i in range(m):
         flag = True
 
     else:
+        # 끝이 I로 끝났을 경우 1 더해줌
         if flag == False:
             tmp += 1
         check.append(tmp)
@@ -42,6 +43,7 @@ for i in range(m):
 for k in check:
     # 크거나 같은 것들 중에서(길이가)
     if k >= lens - 1:
+        # 비교열 길이 빼고 I, O 2종류 문자만 있음으로 2로 나눠준 후 맨 마지막 반환 가능한 갯수 1을 더해줘서 계산
         cnt += ((k - lens) // 2 + 1)
 # print(lens)
 # print(check)
