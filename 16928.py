@@ -5,6 +5,7 @@ n, m = map(int, input().split())
 arr = []
 
 check = [False] * 101
+board = [0] * 101
 
 while True:
     try:
@@ -22,46 +23,32 @@ for idx in arr:
     arr_2.append(idx[1])
 
 check[0] = True
+check[1] = True
 
 # 100에 도달하는 방법 저장
 ans = []
 
-# dp
-dp = [0 for i in range(101)]
-
 def bfs(start):
     q = deque()
     q.append(start)
-
-    cnt_mid = -1
 
     while q:
         current = q.popleft()
 
         # 100 이면 횟수 저장
         if current == 100:
-            ans.append(cnt_mid)
+            print(board[current])
+            break
 
-        # check이고, 100 이하일 경우
-        if not check[current] and current <= 100:
-            check[current] = True
+        for i in range(1, 7):
+            next = i + current
 
-            # 칸에 값이 존재할 경우
-            if current in arr_1:
-                idx = arr_1.index(current)
-                q.append(arr_2[idx])
-                # 주사위 횟수 증가
-                dp[arr_2[idx]] = min(dp[arr_2[idx]]+1, dp)
+            if next in arr_1:
+                idx = arr_1.index(next)
+                next = arr_2[idx]
 
-            # 주사위로 이동(모든 가짓수를 다 넣어줌)
-            else:
-                # 주사위 횟수 증가
-                cnt_mid += 1
-                for i in range(1, 7):
-                    next = current + i
-                    if next <= 100 and check[next] == False:
-                        q.append(next)
-
+            if next <= 100 and not check[next]:
+                board[next] = board[current] + 1
+                q.append(next)
+                check[next] = True
 bfs(1)
-
-print(ans)
