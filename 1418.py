@@ -14,3 +14,5 @@ for i in s:
     if i <= m:
         ans += 1
 print(ans-1)
+
+

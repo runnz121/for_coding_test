@@ -71,12 +71,23 @@
 #         print('EMPTY')
 #
 #
-from collections import deque
+# from collections import deque
+#
+# x = [123,1]
+# ll = (10 * x[0] + (x[0] // 1000)) % 10000
+#
+# rr = (x[0]//10 + (x[0]%10)*1000)%10000
+#
+# print(ll)
+# print(rr)
 
-x = [123,1]
-ll = (10 * x[0] + (x[0] // 1000)) % 10000
+arr = [False] * 21
 
-rr = (x[0]//10 + (x[0]%10)*1000)%10000
+for i in range(2, 21):
+    if arr[i] == False:
+        for k in range(i+i, 21, i):
+            arr[k] = True
 
-print(ll)
-print(rr)
+for i in range(2, 21):
+    if arr[i] == False:
+        print(i)
