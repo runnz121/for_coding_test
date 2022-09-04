@@ -81,13 +81,18 @@
 # print(ll)
 # print(rr)
 
-arr = [False] * 21
+# arr = [False] * 21
+#
+# for i in range(2, 21):
+#     if arr[i] == False:
+#         for k in range(i+i, 21, i):
+#             arr[k] = True
+#
+# for i in range(2, 21):
+#     if arr[i] == False:
+#         print(i)
 
-for i in range(2, 21):
-    if arr[i] == False:
-        for k in range(i+i, 21, i):
-            arr[k] = True
+n = 4
+check = [[False] * n for _ in range(n)]
 
-for i in range(2, 21):
-    if arr[i] == False:
-        print(i)
+print(check)
