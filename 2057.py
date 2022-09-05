@@ -6,7 +6,9 @@ if n == 0:
     print("NO")
     exit()
 
-for i in range(20, 0, -1):
+for i in range(20, -1, -1):
+    if i == 0:
+        i = 1
     start /= i
     if n >= start:
         n -= start

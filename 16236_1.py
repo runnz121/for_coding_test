@@ -34,6 +34,7 @@ def find_all_food():
         for j in range(n):
             if 0 < graph[i][j] < 7:
                 if graph[i][j] < shark_big:
+                    # 먹이가 한번씩만 들어옴
                     dist = bfs(i,shark_loc[0],j,shark_loc[1])
                     tmp = [graph[i][j], i,j, dist] # 먹이 크기, 먹이 위치(x, y), 현재 상어 위치와의 거리
                     food.append(tmp)
@@ -59,24 +60,29 @@ def bfs(i, x, j, y): # 그래프 x, 상어 x , 그래프 y, 상어 y
         if k[0] == i and k[1] == j:
             min_dist = min(check[i][j]-1, min_dist)
 
+        # 상하좌우 넓이 탐색
         for p in range(4):
             nx = k[0] + dx[p]
             ny = k[1] + dy[p]
 
             if 0 <= nx < n and 0 <= ny < n:
                 if check[nx][ny] == 0:
+                    #print(shark_big , graph[nx][ny])
+                    if graph[nx][ny] > shark_big:
+                        continue
                     if graph[nx][ny] <= shark_big:
                         check[nx][ny] = check[k[0]][k[1]] + 1
                         que.append([nx, ny])
-    if check[i][j] == 0:
-        graph[i][j] = -1
-    #print('check',check)
-   # print('min_dist', min_dist)
-    if min_dist > 0:
-        min_dist = min(check[i][j], min_dist)
-        #print("if min_dist", min_dist)
-    else:
-        min_dist = 0
+    # 탐색 후 먹이 위치가 변하지 않는다면
+        if check[i][j] == 0:
+            continue
+        #print('check',check)
+       # print('min_dist', min_dist)
+        if min_dist > 0:
+            min_dist = min(check[i][j], min_dist)
+            #print("if min_dist", min_dist)
+        else:
+            min_dist = 0
     return min_dist
 
 
@@ -97,7 +103,7 @@ def move_shark(foods):
     global graph
 
     if len(foods) >= 1:
-        if foods[0][3] > 0:
+        if foods[0][3] < 1000000000:
             # 샤크 위치 갱신
             graph[shark_loc[0]][shark_loc[1]] = 0
             shark_loc = [foods[0][1], foods[0][2]]
@@ -108,16 +114,17 @@ def move_shark(foods):
                 shark_need = 0
                 shark_big += 1
 
-            # 샤크 최소시간증가
-            shark_time += foods[0][3]
-            # 먹은 먹이 9 처리
-            graph[foods[0][1]][foods[0][2]] = 9
+        # 샤크 최소시간증가
+        shark_time += foods[0][3]
+        # 먹은 먹이 9 처리
+        graph[foods[0][1]][foods[0][2]] = 9
 
-
+mem = []
 def main():
     # 처음 상어 위치 갱신
     shark_location()
     global food
+    global mem
 
     while True:
         food = []
@@ -126,9 +133,24 @@ def main():
         # 먹이 갱신
         find_all_food()
 
-        # print(food)
+        print(food)
         # print('loc', shark_loc)
         # 해당되는 먹이가 없는 경우 엄마 소환!
+
+        if not food and food[0][3] >= int(1e9):
+            tmp = []
+            for i in food:
+                if i[3] < shark_big:
+                    tmp.append(i[3])
+                    print(tmp)
+                    # print(i)
+                if i[3] < int(1e9):
+                    print(i[3])
+                    exit()
+            if tmp:
+                print(tmp[0])
+            else:
+                print(0)
         if len(food) == 0:
             print(shark_time)
             exit()
@@ -139,7 +161,7 @@ def main():
 
         # 상어 위치 이동
         move_shark(food)
-        # print(graph)
+        #print(graph)
         # print ('shark_need',shark_need)
         # print("sharktime" , shark_time)
 
