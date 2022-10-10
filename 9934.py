@@ -2,7 +2,6 @@ n = int(input())
 tree = list(map(int, input().split()))
 
 # root node를 구함
-
 def root_nodes(nodes):
     return nodes[len(nodes)//2]
 
