@@ -92,7 +92,32 @@
 #     if arr[i] == False:
 #         print(i)
 
-n = 4
-check = [[False] * n for _ in range(n)]
+# n = 4
+# check = [[False] * n for _ in range(n)]
+#
+# print(check)
 
-print(check)
+n, m = map(int, input().split())
+
+graph = []
+check = [[False] * m for _ in range(n)]
+
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+
+
+
+def cctv2(x, y):
+    cnt = 0
+
+    # 가로 추출
+    d1 = graph[x]
+
+    # 세로 추출
+    d2 = list(zip(*graph))[y]
+
+    print(d2[:y])
+    print(d1)
+
+
+cctv2(2, 2)
