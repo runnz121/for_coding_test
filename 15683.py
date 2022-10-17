@@ -1,175 +1,61 @@
+import copy
+
+N, M = map(int, input().split())
+graph = [list(map(int, input().split())) for _ in range(N)]
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+direction = {
+    1: [[0], [1], [2], [3]],
+    2: [[0, 2], [1, 3]],
+    3: [[0, 1], [1, 2], [2, 3], [3, 0]],
+    4: [[0, 1, 2], [1, 2, 3], [2, 3, 0], [3, 0, 1]],
+    5: [[0, 1, 2, 3]]
+}  # cctv 종류에 따른 감시 방향
 
 
-n, m = map(int, input().split())
-
-graph = []
-check = [[False] * m for _ in range(n)]
-
-for i in range(n):
-    graph.append(list(map(int, input().split())))
-
-total = 0
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 0:
-            total += 1
-
-def cctv1(x, y):
-    dx = [-1, 1, 0, 0]
-    dy = [0, 0, -1, 1]
-
-    # 사각지대 갯수
-    cnt = 0
-
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-
-        tmp = 0
+# 각각 방향을 보고 모두 더하는 식으로 구현해야 함 ...
+def watch(x, y, direction, tmp):
+    for d in direction:
+        print(d)
+        nx, ny = x, y
+        # 이동할 수 없을 때까지 이동하면서 '#'으로 변경
         while True:
-            if 0 > nx or 0 > ny or nx >= n or ny >= m:
+            nx += dx[d]
+            ny += dy[d]
+            if nx < 0 or nx >= N or ny < 0 or ny >= M or tmp[nx][ny] == 6:  # 이동 가능한 범위를 벗어나거나 벽이면 break
                 break
-            if graph[nx][ny] == 6:
-                break
-
-            if graph[nx][ny] == 0:
-                tmp += 1
-            else:
-                tmp -= 1
-
-            nx += dx[i]
-            ny += dy[i]
-
-        cnt = max(cnt, tmp)
-    return cnt
-
-def cctv2(x, y):
-    #가로 추출
-    tmp1 = 0
-    d1 = graph[x]
-    for i in d1:
-        if i == 6:
-            break
-        if i == 0:
-            tmp1 += 1
-        else:
-            tmp1 -= 1
-
-    #세로 추출
-    tmp2 = 0
-    d2 = list(zip(*graph))[y]
-    for i in d2:
-        if i == 6:
-            break
-        if i == 0:
-            tmp2 += 1
-        else:
-            tmp2 -= 1
-
-    return max(tmp1, tmp2)
-
-def cctv3(x, y):
-
-    cnt = 0
-
-    dx = [-1, 1, 1, -1]
-    dy = [1, 1, -1, -1]
-
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-
-        tmp1 = 0
-        tmp2 = 0
-
-        while True:
-            if 0 <= nx or nx < n:
-                if graph[nx][y] == 0:
-                    tmp1 += 1
-
-            if 0 <= ny or ny < m:
-                if graph[x][ny] == 0:
-                    tmp2 += 1
-
-            if 0 > nx and 0 > ny and nx >= n and ny >= m:
-                break
-        cnt = max(cnt, tmp1 + tmp2)
-    return cnt
-
-def cctv4(x, y):
-    maxCnt = 0
-    for i in range(4):
-        d11 = x
-        d22 = y
-        if i == 0 or i == 2:
-            d22 = x
-        else:
-            d11 = y
-        # 가로 추출
-        tmp1 = 0
-        d1 = graph[d11]
-        for i in d1:
-            if i == 6:
-                break
-            if i == 0:
-                tmp1 += 1
-            else:
-                tmp1 -= 1
-
-        # 세로 추출
-        tmp2 = 0
-        d2 = list(zip(*graph))[d22][:d22]
-        for i in d2:
-            if i == 6:
-                break
-            if i == 0:
-                tmp2 += 1
-            else:
-                tmp2 -= 1
-        total = tmp2 + tmp1
-        maxCnt = max(total, maxCnt)
-    return maxCnt
-
-def cctv5(x, y):
-
-    # 가로 추출
-    d1 = graph[x]
-
-    tmp1 = 0
-
-    for i in d1:
-        if i == 6:
-            break
-        if i == 0:
-            tmp1 += 1
+            elif tmp[nx][ny] == 0:  # 빈칸이면 감시 구역으로 변경
+                tmp[nx][ny] = '#'
 
 
-    d2 = list(zip(*graph))[y]
+def dfs(n, graph):
+    global ans
+    tmp = copy.deepcopy(graph)
 
-    tmp2 = 0
-    for i in d2:
-        if i == 6:
-            break
+    if n == len(cctv):
+        count = 0  # 빈칸 개수
+        for t in tmp:
+            count += t.count(0)
+        ans = min(ans, count)  # 사각지대 최소 크기를 구한다
+        return
 
-        if i == 0:
-            tmp2 += 1
-
-    return tmp1 + tmp2
-
-
-blind = 0
-for i in range(n):
-    for j in range(m):
-        if graph[i][j] == 1:
-            blind += cctv1(i, j)
-        if graph[i][j] == 2:
-            blind += cctv2(i, j)
-        if graph[i][j] == 3:
-            blind += cctv3(i, j)
-        if graph[i][j] == 4:
-            blind += cctv4(i, j)
-        if graph[i][j] == 5:
-            blind += cctv5(i, j)
+    x, y, c = cctv[n]
+    # 해당 cctv의 종류에 따른 감시 구역을 구한다
+    for d in direction[c]:
+        #print(d)
+        watch(x, y, d, tmp)
+        dfs(n + 1, tmp)
+        tmp = copy.deepcopy(graph)
 
 
-print(total - blind)
+cctv = []  # cctv 리스트
+ans = 1e9  # 사각지대 크기
+
+# cctv 찾기
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] != 0 and graph[i][j] != 6:
+            cctv.append([i, j, graph[i][j]])  # x위치, y위치, cctv 종류
+
+dfs(0, graph)
+print(ans)
