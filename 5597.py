@@ -1,17 +1,17 @@
 arr = []
-for i in range(30):
-    x = str(input())
+for i in range(28):
+    x = int(input())
     arr.append(x)
 
 arr.sort()
 
-check = []
+ans = []
 
 for i in range(1, 31):
-    if str(i) not in arr:
-        check.append(i)
+    if i not in arr:
+        ans.append(i)
 
-check.sort()
+ans.sort()
 
-for i in check:
-    print(i)
+for x in ans:
+    print(x)
