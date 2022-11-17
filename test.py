@@ -92,7 +92,16 @@
 #     if arr[i] == False:
 #         print(i)
 
-n = 4
-check = [[False] * n for _ in range(n)]
+# n = 4
+# check = [[False] * n for _ in range(n)]
+#
+# print(check)
 
-print(check)
+arr = [[1,2,3],
+       [4,5,6],
+       [7,8,9]]
+
+rot= list(zip(*arr[::-1]))
+
+for i in rot:
+    print(i)
