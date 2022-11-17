@@ -97,6 +97,7 @@
 #
 # print(check)
 
+<<<<<<< HEAD
 arr = [[1,2,3],
        [4,5,6],
        [7,8,9]]
@@ -105,3 +106,29 @@ rot= list(zip(*arr[::-1]))
 
 for i in rot:
     print(i)
+=======
+n, m = map(int, input().split())
+
+graph = []
+check = [[False] * m for _ in range(n)]
+
+for i in range(n):
+    graph.append(list(map(int, input().split())))
+
+
+
+def cctv2(x, y):
+    cnt = 0
+
+    # 가로 추출
+    d1 = graph[x]
+
+    # 세로 추출
+    d2 = list(zip(*graph))[y]
+
+    print(d2[:y])
+    print(d1)
+
+
+cctv2(2, 2)
+>>>>>>> da9f4bb28e903e6db18c14f33d07b66995f35cab

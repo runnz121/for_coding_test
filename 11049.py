@@ -1,22 +1,23 @@
+import copy
+
 n = int(input())
 
-dp = [0] * (n+1)
+dp = [[0] * n for _ in range(n)]
 
-dp[0] = 0
-dp[1] = 0
-arr = []
+vector = []
 
-for _ in range(n):
-    arr.append(list(map(int, input().split())))
+# n * m = n * len(row)
 
-print(dp)
-# 갯수
-for i in range(2, n+1):
+for i in range(n):
+    row = list(map(int, input().split()))
+    vector.append(row)
 
-    for x in range(0, n+1):
-        for y in range(x, n+1):
-            print(arr[x])
-            # if arr[x][1] == arr[y][0]:
-            #     dp[i] = min(arr[x][0]*arr[x][1]*arr[y][1] , dp[i])
+for i in range(n):
+    for j in range(n):
+        if i == j:
+            continue
+        if vector[i][1] == vector[j][0]:
+            dp[j][i] = vector[i][0] * vector[i][1] * vector[j][1]
+
 
 print(dp)

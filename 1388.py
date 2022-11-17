@@ -1,20 +1,44 @@
+from collections import deque
 n, m = map(int, input().split())
 
+check = []
 arr = []
+arr_col = []
 for i in range(n):
     arr.append(list(map(str, input().split())))
+    check.append([False] * m)
 
-cnt1 = 0
 for k in range(n):
-    for i in arr[k]:
-        tmp1 = 0
-        for j in range(1, m):
-            if i[j-1] == '-' and i[j]:
-                tmp1 += 1
-                if tmp1 == m-1:
-                    cnt1 += 1
-            else:
-                cnt1 += 1
-                tmp1 = 0
+    arr_col.append(list(arr[k][0]))
 
-print(cnt1)
+
+def check_row(x, y):
+    cnt = 1
+    while y < m:
+        if arr_col[x][y] == '-':
+            check[x][y] = True
+            y += 1
+        else:
+            break
+    return cnt
+
+def check_col(x, y):
+    cnt = 1
+    while x < n:
+        if arr_col[x][y] == '|':
+            check[x][y] = True
+            x += 1
+        else:
+            break
+    return cnt
+
+
+total = 0
+for i in range(n):
+    for j in range(m):
+        if arr_col[i][j] == '-' and check[i][j] == False:
+            total += check_row(i, j)
+        elif arr_col[i][j] == '|' and check[i][j] == False:
+            total += check_col(i, j)
+
+print(total)
