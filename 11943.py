@@ -1,4 +1,4 @@
-a, b = map(int, input().split())
-c, d = map(int, input().split())
+A, B = map(int, input().split())
+C, D = map(int, input().split())
 
-print(min(a, b) + min(c, d))
+print(min(A+D,B+C))
