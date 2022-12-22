@@ -1,20 +1,24 @@
-n = int(input())
-x = list(map(str, input().split()))
+from itertools import permutations
 
-nums_min = [i for i in range(10)]
-nums_max = [i for i in range(10,-1, -1)]
+k = int(input())
+signs = input().split()
 
-check_min = [False * ]
+result = []
+for per in permutations([0,1,2,3,4,5,6,7,8,9],k+1) :
+  flag = True
+  for i in range(len(signs)) :
+    if signs[i] == '<' :
+      if per[i] < per[i+1] : continue
+      else : 
+        flag = False
+        break
+    else :
+      if per[i] > per[i+1] : continue
+      else : 
+        flag = False
+        break
+  if flag :
+    result.append(per)
 
-min_arr = []
-tmp1 = []
-def back(depth):
-
-    global min_arr
-    global tmp1
-
-    if depth == n:
-        min_arr.append(tmp1)
-        return
-
-    for i in range(n):
+print(''.join(map(str,list(max(result)))))
+print(''.join(map(str,list(min(result)))))
