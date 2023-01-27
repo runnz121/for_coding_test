@@ -12,3 +12,6 @@ for x in range(15):
             res += arr[y][x]
 
 print(res)
+
+for pair in zip(arr[0], arr[1], arr[2], arr[3], arr[4]):
+    print(pair)
