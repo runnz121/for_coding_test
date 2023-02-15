@@ -1,9 +1,3 @@
-import sys
-
-input = sys.stdin.readline
-
-arr = list(map(str, input().split()))
-find = str(input())
 
 # c++
 # https://bowbowbow.tistory.com/6
@@ -31,30 +25,46 @@ def getPi(p):
 
 
 def kmp(s, p):
-    # 결과를 담을 배열
     res = []
-    # 찾을 패턴 문자열 기준으로 pi 배열을 생성
+    count = 0
     pi = getPi(p)
-    # 비교 대상 문자열 길이
-    len_s = len(s)
-    # 기준 대상 문자열 길이
-    len_p = len(p)
     j = 0
-    for i in range(len_s):
+    for i in range(len(s)):
         while j > 0 and s[i] != p[j]:
             j = pi[j - 1]
         if s[i] == p[j]:
-            if j == len_p - 1:
-                res.append(i - len_p + 1)
+            if j == (len(p) - 1):
+                res.append(i - len(p) + 2)
+                count += 1
                 j = pi[j]
             else:
                 j += 1
-    return res
+    print(count)
+    for element in res:
+        print(element)
+T = input()
+P = input()
+kmp(T, P)
 
-res = kmp('ABCDABCDABDE', 'ABCDABD')
-print(res)
 
+# def kmp1(s, p):
+#     # 결과를 담을 배열
+#     res = []
+#     # 찾을 패턴 문자열 기준으로 pi 배열을 생성
+#     pi = getPi(p)
+#     # 비교 대상 문자열 길이
+#     len_s = len(s)
+#     # 기준 대상 문자열 길이
+#     len_p = len(p)
+#     j = 0
+#     for i in range(len_s):
+#         while j > 0 and s[i] != p[j]:
+#             j = pi[j - 1]
+#         if s[i] == p[j]:
+#             if j == len_p - 1:
+#                 res.append(i - len_p + 1)
+#                 j = pi[j]
+#             else:
+#                 j += 1
+#     return res
 
-for word in arr:
-    res = kmp(word, find)
-    print(res)
