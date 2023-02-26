@@ -36,3 +36,6 @@ for i in range(n):
         res = max(res, graph[i][j])
 
 print(res - 1)
+
+# que 에 먼저 다 넣고 시작
+# 안전거리 = 상어 기준으로 0인 칸을 갱신 - 1
